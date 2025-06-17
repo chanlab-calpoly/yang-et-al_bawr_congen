@@ -1,0 +1,152 @@
+---
+title: "BAWR EEMS"
+author: "Lauren Chan"
+output: html_notebook
+---
+
+# Running EEMS for BAWR data
+
+Starting with `n71_mac3L80_maxhet50.snps.vcf` but using version omitting southern individual. n=67
+
+Path was `../_file_conversions/intermediate_files/bawr_n71_NoClade.vcf`
+
+# Generate *.diffs file for *vcf data
+Needed to run EEMS. From: https://devonderaad.github.io/aph.rad/eems/run.eems.html
+
+```{r}
+#Define function to convert a genotype matrix into a pairwise difference matrix
+bed2diffs_v2 <- function(genotypes) {
+  nIndiv <- nrow(genotypes)
+  nSites <- ncol(genotypes)
+  missing <- is.na(genotypes)
+  ## Impute NAs with the column means (= twice the allele frequencies)
+  geno_means <- colMeans(genotypes, na.rm = TRUE)
+  # nIndiv rows of genotype means
+  geno_means <- matrix(geno_means, nrow = nIndiv, ncol = nSites, byrow = TRUE)
+  ## Set the means which correspond to observed genotypes to 0
+  geno_means[missing == FALSE] <- 0
+  ## Set the missing genotypes to 0 (used to be NA)
+  genotypes[missing == TRUE] <- 0
+  genotypes <- genotypes + geno_means
+  similarities <- genotypes %*% t(genotypes) / nSites
+  self_similarities <- diag(similarities)
+  vector1s <- rep(1, nIndiv)
+  diffs <- self_similarities %*% t(vector1s) + vector1s %*% t(self_similarities) - 2 * similarities
+  diffs
+}
+```
+
+# Load R libraries
+```{r message=FALSE}
+library(vcfR)
+library(dplyr)
+```
+
+## Read vcf and set up
+```{r}
+vcffile <- read.vcfR("../vcf_files/bawr_n71_NoClade.vcf")
+```
+
+## Make sure the order of othe coords file matches the vcf.
+```{r}
+ids <- read.delim("BAWR_67_names.txt", header=F, sep="\t")
+ids[,1] == colnames(vcffile@gt)[-1]
+```
+## Format genetic data
+```{r}
+gen.dat <- vcfR2genlight(vcffile)
+geno.mat <- as.matrix(gen.dat)
+gen.diff.mat <- bed2diffs_v2(genotypes=geno.mat)
+```
+
+## Make sure order matches
+```{r}
+rownames(geno.mat) == ids[,1]
+```
+## print any that don't match
+```{r}
+ids[rownames(geno.mat) != ids[,1],]
+```
+# write out the pairwise difference matrix to file
+```{r}
+write.table(gen.diff.mat, "bawr.diffs", 
+            col.names = F, 
+            row.names = F, 
+            quote = F, 
+            sep='\t')
+```
+
+# Set-up files for EEMS
+In a single data folder we need a .coords, .diffs, and .outer setting the boundaries
+```{r}
+coords <- read.csv("BAWR_67_pop_coords.csv", header=F)
+names(coords) <- c("pop", "lat", "long")
+samps <- read.delim("BAWR_67_names.txt", header=F, sep="\t")
+names(samps) <- c("sample", "pop")
+justcoords <- coords[match(samps$pop,coords$pop),3:2]
+write.table(justcoords, "bawr.coord",
+            col.names = F, 
+            row.names = F, 
+            quote = F, 
+            sep='\t')
+```
+
+### Make bounding box (.outer file)
+```{r}
+min(coords$lat)
+max(coords$lat)
+min(coords$long)
+max(coords$long)
+```
+Buffer by + 0.2 decimal degree in all directions
+```{bash}
+outerfilename=bawr.outer
+echo -e "-122.71\t45.06" > $outerfilename
+echo -e "-122.71\t45.75" >> $outerfilename
+echo -e "-121.74\t45.75" >> $outerfilename
+echo -e "-121.74\t45.06" >> $outerfilename
+echo -e "-122.71\t45.06" >> $outerfilename
+```
+
+### Put files in place for eems runs
+
+```{bash}
+mkdir data
+mv bawr.diffs data/.
+mv bawr.outer data/.
+mv bawr.coord data/.
+```
+
+# Run EEMS
+Below is an example ini file
+```
+datapath = ./data/bawr
+mcmcpath = ./output/north_r1
+nIndiv = 67
+nSites = 139499
+nDemes = 1000
+diploid = true
+numMCMCIter = 1000000
+numBurnIter = 500000
+numThinIter = 9999
+
+mEffctProposalS2 = 0.3
+qEffctProposalS2 = 0.01
+mSeedsProposalS2 = 0.05
+mrateMuProposalS2 = 0.005
+```
+
+## Run in Terminal using following
+`runeems_snps --params param1.ini`
+
+* Need to make output files first
+* might need to update/recompile eems
+* Do multiple replicates and adjust proposal parameters.
+
+
+
+
+```{r}
+getwd()
+```
+
