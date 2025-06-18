@@ -1,5 +1,5 @@
-# Data analysis for Yang et al. 2025
-Input files and scripts for Yang et al. 2025. 
+# Description of file archive
+Input files and scripts for analysis of _Batrachoseps wrighti_ RADseq data from Yang et al.
 
 Full citation: Yang, C, L Guderyahn, C Corkran, S Wagner, and LM Chan. In press. Population genomic investigation of the Oregon Slender Salamander (_Batrachoseps wrighti_) reveals suburban populations are remnants, not recent introductions. Conservation Genetics
 
