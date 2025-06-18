@@ -25,6 +25,11 @@ Test of parameters for de novo assembly with Stacks.
 	* subset_final_vcf.sh: Command lines to subset final dataset.
 	* subset_Northern_.txt: individuals to include for Northern Region
 	* subset_pdx_colr.txt: individuals to include for Portland and Columbia River Regions
+* **popmaps Folder**
+	* BAWR_popmap_n71.txt: populations map for all data
+	* BAWR_popmap_north.txt: populations map for Northern region
+	* BAWR_popmap_pdxcolr.txt: populations map for Portland and Columbia River Regions
+	* BAWR_popmap_n71_regions.tsv: populations map for individuals to the four regions
 * **maxent Folder**
 	* gbif_miller_known_sites.csv: presence sites
 	* chelseacur_asc folder: clipped BIOCLIM and elevation layer
