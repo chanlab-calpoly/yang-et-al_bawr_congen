@@ -1,0 +1,81 @@
+---
+title: "Visualizing PCangst Results"
+author: "Lauren Chan"
+date: "Aug 4,2024"
+output: html_notebook
+---
+
+# North data subsets
+Visualizing the variance matrices from PCangsd analyses
+
+## First need to convert vcfs to beagles. 
+The code for the conversions is "convert_vcf2beagle.html/ipynb"
+
+vcf2beagle.pl was used to turn vcf to beagle
+
+gzip to zip *beagle. Then changed name to add ".Z"
+
+```
+pcangsd -b bawr_n71_noclade.beagle.gz.Z \
+    --out n71north_pcangst --maf_iter 1000 --iter 10000
+```
+
+# Process in R
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+# For n71
+
+## Load files
+```{r}
+covs <- read.delim("n71north_pcangst.cov", sep=" ", header=F)
+popfile <- read.delim("n71_NorthClade_popmap.txt")
+```
+
+## Make calculations
+```{r}
+e <- eigen(covs)
+pop <- as.vector(popfile$population)
+eigenvectors <- as.data.frame(e$vectors)
+
+#extract eigenvectors 
+eigenvectors = e$vectors #extract eigenvectors 
+pca.vectors = as_tibble(cbind(pop, data.frame(eigenvectors)))
+
+poporder <- c("Powell", "JohnsonCreek", "Bearcreek",
+                "Gabbert", "Dowsett", "Fishpond", "Palopa",
+                "Oxbow", "TT", "BridalVeil",
+                "Wildcat","Salmon", "Marmot", "Wildwood", 
+                "KeelOver", "TC")
+pca.vectors$pop <- factor(pca.vectors$pop, levels = poporder)
+```
+
+## Variance
+```{r}
+pca.eigenval.sum = sum(e$values) #sum of eigenvalues
+varPC1 <- (e$values[1]/pca.eigenval.sum)*100 #Variance explained by PC1
+varPC2 <- (e$values[2]/pca.eigenval.sum)*100 #Variance explained by PC2
+varPC3 <- (e$values[3]/pca.eigenval.sum)*100 #Variance explained by PC3
+varPC4 <- (e$values[4]/pca.eigenval.sum)*100 #Variance explained by PC4
+c(varPC1, varPC2)
+```
+
+## Plot PCA
+```{r}
+pca <- ggplot(pca.vectors) + 
+  geom_point(aes(x=X1, y=X2, fill = pop, size=1), shape=21) +
+  xlab("PC1 (12.9%)") +
+  ylab("PC2 (3.9%)") +
+  scale_size(guide = 'none')
+pca
+```
+
+
+# print to PDF
+```{r}
+pdf("n71north_pca.pdf", width=9, height=6)
+print(pca)
+dev.off()
+```
