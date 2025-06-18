@@ -1,7 +1,6 @@
 #!/bin/bash
 
 infile='bawr_n71_NoClade.beagle'
-#outprefix='n71all_'
 
 for ((k=1; k < 7; k++))
 do
@@ -10,5 +9,3 @@ do
 		NGSadmix -likes $infile -minMaf 0.05 -K $k -o 'k'$k$r
 	done;
 done;
-
-#chmod +x execute_q.sh

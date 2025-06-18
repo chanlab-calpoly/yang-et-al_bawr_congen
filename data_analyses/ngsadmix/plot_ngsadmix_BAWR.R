@@ -1,7 +1,7 @@
 # Plot log values from NGSadmixture
 # Lauren, Aug 4, 2024
 ## Example Usage:
-## assignment_plot("n63_all", "../../_file_conversions/popmaps_whitelists/BAWR_popmap_n63.csv", k=2, r=4)
+## assignment_plot("n71_all", "../popmaps/BAWR_popmap_n71.txt", k=2, r=4)
 #
 # Assumes labeling of admixture output files as k4a.qopt where 4 is the k and 
 # the replicate is a letter (a..j in the case of 1-10)

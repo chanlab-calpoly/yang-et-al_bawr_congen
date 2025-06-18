@@ -6,7 +6,7 @@ output: html_notebook
 
 # Running EEMS for BAWR data
 
-Starting with `n71_mac3L80_maxhet50.snps.vcf` but using version omitting southern individual. n=67
+Starting with `n71_mac3L80_maxhet50.snps.vcf` but using version omitting southern individuals. n=67
 
 Path was `../_file_conversions/intermediate_files/bawr_n71_NoClade.vcf`
 
@@ -44,12 +44,12 @@ library(dplyr)
 
 ## Read vcf and set up
 ```{r}
-vcffile <- read.vcfR("../vcf_files/bawr_n71_NoClade.vcf")
+vcffile <- read.vcfR("../../vcffiles/bawr_northern.recode.vcf")
 ```
 
 ## Make sure the order of othe coords file matches the vcf.
 ```{r}
-ids <- read.delim("BAWR_67_names.txt", header=F, sep="\t")
+ids <- read.delim("../popmaps/BAWR_popmap_north.txt", header=T, sep="\t")
 ids[,1] == colnames(vcffile@gt)[-1]
 ```
 ## Format genetic data
@@ -81,7 +81,7 @@ In a single data folder we need a .coords, .diffs, and .outer setting the bounda
 ```{r}
 coords <- read.csv("BAWR_67_pop_coords.csv", header=F)
 names(coords) <- c("pop", "lat", "long")
-samps <- read.delim("BAWR_67_names.txt", header=F, sep="\t")
+samps <- read.delim("../popmaps/BAWR_popmap_north.txt", header=T, sep="\t")
 names(samps) <- c("sample", "pop")
 justcoords <- coords[match(samps$pop,coords$pop),3:2]
 write.table(justcoords, "bawr.coord",
@@ -139,14 +139,5 @@ mrateMuProposalS2 = 0.005
 ## Run in Terminal using following
 `runeems_snps --params param1.ini`
 
-* Need to make output files first
-* might need to update/recompile eems
 * Do multiple replicates and adjust proposal parameters.
-
-
-
-
-```{r}
-getwd()
-```
 

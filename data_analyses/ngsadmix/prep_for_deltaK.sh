@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# Run with `sh prep_for_deltaK.sh maxK outputname`
+
 maxk=$1
 outfile=$2
 

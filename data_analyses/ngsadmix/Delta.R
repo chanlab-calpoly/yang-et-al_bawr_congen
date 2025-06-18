@@ -3,10 +3,12 @@
 ##This function calculates optimal K using the method described by evanno et al. 2005
 #Requires a log probability file with two columns, V1 being the value of K, 
 #and V2 being the LnProb given by STRUCTURE
+
 library(dplyr)
 library(ggplot2)
 
-#Delta_K(x)
+# Load delta K file from prep_for_deltaK.sh as x
+# Run with Delta_K(x)
 
 Delta_K<- function(x) {
   T2<- x %>% group_by(V1) %>% summarise(St_dev= sd(V2), mean=mean(V2))

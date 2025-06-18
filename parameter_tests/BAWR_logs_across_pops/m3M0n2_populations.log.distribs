@@ -1,0 +1,209 @@
+# Note: Individual distributions can be extracted using the `stacks-dist-extract` utility.
+#       e.g. `stacks-dist-extract populations.log.distribs dist_name`
+
+BEGIN batch_progress
+Batch 1: analyzed 10000 loci; filtered 57139 loci; 67139 loci seen.
+Batch 2: analyzed 10000 loci; filtered 57108 loci; 67108 loci seen.
+Batch 3: analyzed 10000 loci; filtered 58693 loci; 68693 loci seen.
+Batch 4: analyzed 10000 loci; filtered 64389 loci; 74389 loci seen.
+Batch 5: analyzed 10000 loci; filtered 62041 loci; 72041 loci seen.
+Batch 6: analyzed 10000 loci; filtered 66327 loci; 76327 loci seen.
+Batch 7: analyzed 10000 loci; filtered 64924 loci; 74924 loci seen.
+Batch 8: analyzed 10000 loci; filtered 67732 loci; 77732 loci seen.
+Batch 9: analyzed 10000 loci; filtered 68244 loci; 78244 loci seen.
+Batch 10: analyzed 10000 loci; filtered 69675 loci; 79675 loci seen.
+Batch 11: analyzed 10000 loci; filtered 75252 loci; 85252 loci seen.
+Batch 12: analyzed 10000 loci; filtered 71680 loci; 81680 loci seen.
+Batch 13: analyzed 10000 loci; filtered 72003 loci; 82003 loci seen.
+Batch 14: analyzed 10000 loci; filtered 75071 loci; 85071 loci seen.
+Batch 15: analyzed 10000 loci; filtered 74211 loci; 84211 loci seen.
+Batch 16: analyzed 10000 loci; filtered 76898 loci; 86898 loci seen.
+Batch 17: analyzed 10000 loci; filtered 79171 loci; 89171 loci seen.
+Batch 18: analyzed 10000 loci; filtered 79017 loci; 89017 loci seen.
+Batch 19: analyzed 10000 loci; filtered 79318 loci; 89318 loci seen.
+Batch 20: analyzed 10000 loci; filtered 82693 loci; 92693 loci seen.
+Batch 21: analyzed 10000 loci; filtered 92759 loci; 102759 loci seen.
+Batch 22: analyzed 2465 loci; filtered 1527480 loci; 1529945 loci seen.
+END batch_progress
+
+BEGIN samples_per_loc_prefilters
+# Distribution of valid samples matched to a catalog locus prior to filtering.
+n_samples	n_loci
+1	1302236
+2	153521
+3	133335
+4	146632
+5	180162
+6	233079
+7	290164
+8	316894
+9	265802
+10	156782
+11	55429
+12	254
+END samples_per_loc_prefilters
+
+BEGIN missing_samples_per_loc_prefilters
+# Distribution of missing samples for each catalog locus prior to filtering.
+# Absent samples at locus	Count
+0	254
+1	55429
+2	156782
+3	265802
+4	316894
+5	290164
+6	233079
+7	180162
+8	146632
+9	133335
+10	153521
+11	1302236
+END missing_samples_per_loc_prefilters
+
+BEGIN snps_per_loc_prefilters
+# Distribution of the number of SNPs per catalog locus prior to filtering.
+n_snps	n_loci
+0	2208570
+1	417181
+2	242092
+3	128527
+4	70868
+5	40939
+6	25259
+7	16972
+8	12291
+9	9545
+10	7877
+11	6730
+12	5918
+13	5100
+14	4509
+15	3969
+16	3501
+17	3130
+18	2803
+19	2489
+20	2131
+21	1877
+22	1683
+23	1491
+24	1339
+25	1023
+26	934
+27	823
+28	715
+29	572
+30	516
+31	444
+32	388
+33	346
+34	265
+35	244
+36	184
+37	180
+38	154
+39	112
+40	102
+41	88
+42	65
+43	67
+44	38
+45	39
+46	33
+47	27
+48	18
+49	23
+50	14
+51	17
+52	8
+53	15
+54	8
+55	5
+56	9
+57	3
+58	2
+59	7
+60	1
+61	3
+62	4
+63	1
+67	1
+88	1
+END snps_per_loc_prefilters
+
+BEGIN samples_per_loc_postfilters
+# Distribution of valid samples matched to a catalog locus after filtering.
+n_samples	n_loci
+10	156782
+11	55429
+12	254
+END samples_per_loc_postfilters
+
+BEGIN missing_samples_per_loc_postfilters
+# Distribution of missing samples for each catalog locus after filtering.
+# Absent samples at locus	Count
+0	254
+1	55429
+2	156782
+END missing_samples_per_loc_postfilters
+
+BEGIN snps_per_loc_postfilters
+# Distribution of the number of SNPs per catalog locus (after filtering).
+n_snps	n_loci
+0	126186
+1	53371
+2	21581
+3	6850
+4	2487
+5	980
+6	466
+7	219
+8	115
+9	86
+10	48
+11	29
+12	16
+13	4
+14	5
+15	8
+16	6
+17	1
+18	1
+19	3
+20	1
+22	2
+END snps_per_loc_postfilters
+
+BEGIN loci_per_sample
+# Number of loci per individual sample (after filtering).
+sample	n_loci	present_loci	missing_loci	frequency_missing
+Sal_RA1119	212465	211471	994	0.0047
+GB_RA944	212465	210867	1598	0.0075
+PB_RA906	212465	210634	1831	0.0086
+Dow_RA926	212465	209537	2928	0.0138
+TL14	212465	206005	6460	0.0304
+FP_RA952	212465	208209	4256	0.0200
+TC6	212465	197448	15017	0.0707
+Oxb_RA1101	212465	206881	5584	0.0263
+TT3	212465	181692	30773	0.1448
+Div_RA917	212465	446	212019	0.9979
+Pal_RA0958	212465	195046	17419	0.0820
+Wild_RA1113	212465	142351	70114	0.3300
+END loci_per_sample
+
+BEGIN variant_sites_per_sample
+# Number of variant sites per individual sample (after filtering).
+sample	n_sites	present_sites	missing_sites	frequency_missing
+Sal_RA1119	139439	137632	1807	0.0130
+GB_RA944	139439	137480	1959	0.0140
+PB_RA906	139439	137195	2244	0.0161
+Dow_RA926	139439	136430	3009	0.0216
+TL14	139439	132478	6961	0.0499
+FP_RA952	139439	135676	3763	0.0270
+TC6	139439	127545	11894	0.0853
+Oxb_RA1101	139439	134689	4750	0.0341
+TT3	139439	120126	19313	0.1385
+Div_RA917	139439	592	138847	0.9958
+Pal_RA0958	139439	127373	12066	0.0865
+Wild_RA1113	139439	96251	43188	0.3097
+END variant_sites_per_sample
