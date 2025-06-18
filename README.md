@@ -1,5 +1,9 @@
 # Data analysis for Yang et al. 2025
-Description of folders and contents related to bioinformatics and data analysis associated with Yang et al. 2025 
+Input files and scripts for Yang et al. 2025. 
+
+Full citation: Yang, C, L Guderyahn, C Corkran, S Wagner, and LM Chan. In press. Population genomic investigation of the Oregon Slender Salamander (_Batrachoseps wrighti_) reveals suburban populations are remnants, not recent introductions. Conservation Genetics
+
+
 
 # parameter_tests folder
 Test of parameters for de novo assembly with Stacks.
